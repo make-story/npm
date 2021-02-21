@@ -8,6 +8,11 @@
       "version": "7.1.0",
       "resolved": "https://registry.npmjs.org/commander/-/commander-7.1.0.tgz",
       "integrity": "sha512-pRxBna3MJe6HKnBGsDyMv8ETbptw3axEdYHoqNh7gu5oDcew8fs0xnivZGm06Ogk8zGAJ9VX+OPEr2GXEQK4dg=="
+    },
+    "make-css": {
+      "version": "1.0.0",
+      "resolved": "https://registry.npmjs.org/make-css/-/make-css-1.0.0.tgz",
+      "integrity": "sha512-S4N6E15pYcq4PCxw7vXi+86WTBXDJqUUtDyg3gCgiomWk//+RUd0K/o1RWPwDOui+BCrtcrcGH3UWe9m8Um5FQ=="
     }
   }
 }
