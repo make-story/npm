@@ -33,6 +33,18 @@ Password:
 Email: (this IS public) 
 ```
 
+### .npmrc 파일 이용 로그인
+auth base64 생성  
+```
+$ echo -n 'myuser:mypassword' | openssl base64
+```
+
+.npmrc
+```
+email=이메일정보
+_auth=키
+```
+
 ## 로그인 확인
 ```
 $ npm whoami
