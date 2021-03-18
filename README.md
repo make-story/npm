@@ -106,6 +106,12 @@ https://docs.npmjs.com/cli/v7/configuring-npm/npmrc/
 
 -----
 
+## 패키지 저장소 지정 install
+```
+$ npm set registry "http://registry.npmjs.org/"
+$ npm config get registry
+```
+
 ## 패키지 그룹(또는 범위) '@'
 @tistory/* 의 이름을 가진 패키지는 private npm 서버를 바라보도록 설정  
 ```
