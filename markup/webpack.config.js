@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
-const pkg = require('./package.json');
+const package = require('./package.json');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -33,14 +33,24 @@ const isProduction = isArgv('mode=production');
 const isDevelopment = isArgv('mode=development');
 const isNone = isArgv('mode=none');
 const minify = isArgv('mode=minify');
-const version = getArgv('version') || pkg.version || new Date().toDateString();
 
-/*
-fs.writeFile('./package.json', packageJsonObj, (err) => {
-	if (err) throw err;
-	console.log('The file has been saved!');
-});
-*/
+// version
+//let version = getArgv('version') || package.version || new Date().toDateString();
+let version = getArgv('version') || package.version || null; // auto
+if(version === 'auto') {
+	let [ major , minor, patch ] = package.version.split('.');
+	version = `${major}.${minor}.${Number(patch) + 1}`;
+}
+if(version !== package.version) {
+	package.version = version;
+	fs.writeFileSync(
+		path.resolve(__dirname, '../package.json'), 
+		JSON.stringify(Object.assign({}, package), null, 2), 
+		function(error) { 
+			console.log(error);
+		}
+	);
+}
 
 // 웹팩 기본 설정 
 const defaultConfigs = {
@@ -108,10 +118,10 @@ const defaultConfigs = {
 		}),
 		new webpack.BannerPlugin({
 			banner: [
-				pkg.name,
-				`@version ${pkg.version} | ${new Date().toDateString()}`,
-				`@author ${pkg.author}`,
-				`@license ${pkg.license}`
+				package.name,
+				`@version ${package.version} | ${new Date().toDateString()}`,
+				`@author ${package.author}`,
+				`@license ${package.license}`
 			].join('\n'),
 			raw: false,
 			entryOnly: true
@@ -183,7 +193,7 @@ function addAnalyzerPlugin(config, type) {
 	config.plugins.push(
 		new BundleAnalyzerPlugin({
 			analyzerMode: 'static',
-			reportFilename: `../../report/webpack/stats-${pkg.version}-${type}.html`
+			reportFilename: `../../report/webpack/stats-${package.version}-${type}.html`
 		})
 	);
 }
