@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "env": "윈도우 환경 set ENV | 맥 환경 export ENV",
+    "build": "export VERSION_AUTO=false && webpack --mode production",
+    "build-version-auto": "export VERSION_AUTO=true && webpack --mode production",
+    "build-none": "webpack --mode none",
+    "dev": "webpack serve --inline --progress"
   },
   "author": "",
   "license": "ISC",

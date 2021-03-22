@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+    />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>HTML List || APMALL7</title>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/contents.css" />
+    <script src="./js/jquery-1.12.4.min.js"></script>
+    <style>
+      .status {
+        background-color: #fff;
+      }
+      .status h2,
+      .status h3,
+      .status h4 {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        font-weight: 500;
+        line-height: 35px;
+      }
+      .status h1 {
+        padding: 0 0 0 16px;
+        font-size: 1.6rem;
+        font-weight: 500;
+      }
+      .status .view-all {
+        position: absolute;
+        top: 11px;
+        right: 16px;
+      }
+      .status h2 {
+        padding: 0 16px;
+        background-color: #f58220;
+        font-size: 1.1rem;
+        color: #ffffff;
+      }
+      .status h3 {
+        padding: 0 16px;
+        background-color: #ddd;
+        font-size: 1rem;
+      }
+      .status h4 {
+        padding: 0 16px 0 32px;
+        background-color: #f8f8f8;
+        border-top: 1px solid #ddd;
+        font-size: 1rem;
+        color: #7a7a7a;
+      }
+      .status .desc {
+        margin-top: 16px;
+        padding: 0 16px;
+        font-size: 0.8rem;
+        line-height: 20px;
+      }
+      .status .d1 {
+        margin-top: 8px;
+        border-top: 2px solid #222;
+      }
+      .status .d1 > li {
+        position: relative;
+        border-bottom: 1px solid #222;
+      }
+      .total {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 16px;
+        z-index: 30;
+        font-size: 0.9rem;
+        color: #fff;
+        font-weight: 300 !important;
+        line-height: 35px;
+      }
+      /*.status .d2 {
+        display: none;
+    }*/
+      .status .d2 > li {
+        border-top: 1px solid #ddd;
+      }
+      /* .status .d3 > li {
+      } */
+      .status dt,
+      .status dd,
+      .status p {
+        font-size: 0.9rem;
+        color: #666;
+      }
+      .status dt {
+        color: #000000;
+        font-weight: 500;
+      }
+      .status dt + dd {
+        margin-top: 5px;
+      }
+      .status dl {
+        position: relative;
+        border-top: 1px solid #ddd;
+        padding: 5px 16px 5px 46px;
+      }
+      .status li > dl:first-child {
+        border-top: none;
+      }
+      .status dl .number {
+        display: block;
+        position: absolute;
+        top: 5px;
+        left: 16px;
+        width: 30px;
+        font-size: 0.9rem;
+        color: #888;
+      }
+      .status .d4 > li > dl {
+        padding-left: 62px;
+      }
+      .status dt,
+      .status dd {
+        position: relative;
+      }
+      .status .date {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        line-height: 1.5;
+      }
+      .status dd.edit {
+        /*display: none;*/
+        border-top: 1px solid #ddd;
+        padding-top: 5px;
+      }
+      .status dd.edit p {
+        color: #888;
+      }
+      .status p {
+        line-height: 1.5;
+      }
+      .status .lb {
+        display: block;
+        position: absolute;
+        top: -3px;
+        right: 0;
+        width: 20px;
+        height: 20px;
+        background-color: #ddd;
+        border-radius: 50%;
+      }
+      .status .desc .lb {
+        display: inline-block;
+        position: relative;
+        top: auto;
+        right: auto;
+        vertical-align: top;
+      }
+      .status .lb:before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "미";
+        width: 100%;
+        height: 100%;
+        font-size: 0.8rem;
+        color: #666;
+        font-weight: 300 !important;
+        line-height: 20px;
+        text-align: center;
+      }
+      .status .lb.fin {
+        background-color: #f58220;
+      }
+      .status .lb.fin:before {
+        content: "완";
+        color: #fff;
+      }
+      .status .lb.ing {
+        background-color: #222;
+      }
+      .status .lb.ing:before {
+        content: "진";
+        color: #fff;
+      }
+      .status .lb.edit {
+        background-color: #018a1b;
+      }
+      .status .lb.edit:before {
+        content: "수";
+        color: #fff;
+      }
+
+      .guideSection {
+        position: relative;
+        padding: 20px 0;
+      }
+      .guideSection .noticeHandle {
+        position: absolute;
+        right: 16px;
+        top: 20px;
+      }
+      .guideSection .grayInfoBox {
+        margin: 0 16px;
+      }
+      .guideSection h1 + * {
+        margin-top: 16px !important;
+      }
+    </style>
+    <script>
+      $(document).ready(function () {
+        //$(".d2").hide();
+        /*$(".view-all").on("click", function() {
+        $(".d2").slideDown("fast");
+    });*/
+        $("h2").on("click", function () {
+          $(this).next(".d2").slideToggle("fast");
+        });
+        $(".d1 > li").each(function () {
+          var len = $(this).find("dl").length;
+          var lenF =
+            $(this).find("dl .lb.fin").length +
+            $(this).find("dl .lb.edit").length;
+          $(this).prepend(
+            '<span class="total">' + lenF + "/" + len + "</span>"
+          );
+
+          $(this)
+            .find("dl")
+            .each(function (index) {
+              $(this).prepend(
+                '<span class="number">' + (index + 1) + ".</span>"
+              );
+            });
+        });
+        $("dd").on("click", function () {
+          if (
+            $(this).prev("dt").find(".lb").hasClass("ing") ||
+            $(this).prev("dt").find(".lb").hasClass("fin") ||
+            $(this).prev("dt").find(".lb").hasClass("edit")
+          ) {
+            if (!$(this).hasClass("edit")) {
+              var link = $(this).find(".link").text();
+              window.open(link); // 새창으로 열기
+              // location.href = link;
+            }
+          }
+        });
+        $("dd .date").on("click", function (e) {
+          //버블링 방지
+          e.stopPropagation();
+        });
+
+        $(".noticeHandle").on("click", function () {
+          var text = $(this).closest(".guideSection").hasClass("active")
+            ? "닫기"
+            : "열기";
+          $(this).text(text);
+          $(this)
+            .closest(".guideSection")
+            .toggleClass("active")
+            .find(".toggleBox")
+            .slideToggle(200);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="wrapper" class="status">
+      <!-- <h1>APMALL7 HTML LIST</h1> -->
+      <!-- <button class="btn btn-info-lb btn-xs view-all">전체펼침</button> -->
+      <div class="guideSection">
+        <h1>NOTICE</h1>
+        <div class="toggleBox">
+          <div class="grayInfoBox">
+            <ul class="infoTextList">
+              <li>최소 디바이스 해상도 : 375 (2021.03.18)</li>
+            </ul>
+          </div>
+        </div>
+        <button class="btnOutlined rounded noticeHandle">닫기</button>
+      </div>
+
+      <div class="guideSection">
+        <h1>LIST</h1>
+        <p class="desc">
+          미작업 :
+          <span class="lb"></span>
+          / 작업완료 :
+          <span class="lb fin"></span>
+          / 진행중 :
+          <span class="lb ing"></span>
+          / 수정완료 :
+          <span class="lb edit"></span>
+        </p>
+        <ul class="d1">
+          <li>
+            <h2>공통</h2>
+            <ul class="d2">
+              <li>
+                <ul class="d2">
+                  <li>
+                    <h3>퍼블 공통 요소</h3>
+                    <ul class="d3">
+                      <li>
+                        <dl>
+                          <dt>
+                            버튼 공통 모음
+                            <span class="lb ing"></span>
+                          </dt>
+                          <dd>
+                            <p class="link">/html/common/button.html</p>
+                            <span class="date"></span>
+                          </dd>
+                        </dl>
+                      </li>
+                      <li>
+                        <dl>
+                          <dt>
+                            폼 요소 모음
+                            <span class="lb ing"></span>
+                          </dt>
+                          <dd>
+                            <p class="link">/html/common/form.html</p>
+                            <span class="date"></span>
+                          </dd>
+                        </dl>
+                      </li>
+                    </ul>
+                    <h3>헤더/액션바</h3>
+                    <ul class="d3">
+                      <li>
+                        <dl>
+                          <dt>
+                            공통 레이아웃(헤더, 푸터)
+                            <span class="lb fin"></span>
+                          </dt>
+                          <dd>
+                            <p class="link">/html/common/layout.html</p>
+                            <span class="date"></span>
+                          </dd>
+                        </dl>
+                      </li>
+                      <li>
+                        <dl>
+                          <dt>
+                            공통 레이아웃(gnb 없는버전)
+                            <span class="lb fin"></span>
+                          </dt>
+                          <dd>
+                            <p class="link">/html/common/layout_single.html</p>
+                            <span class="date"></span>
+                          </dd>
+                        </dl>
+                      </li>
+                      <li>
+                        <dl>
+                          <dt>
+                            액션바/플로팅버튼
+                            <span class="lb fin"></span>
+                          </dt>
+                          <dd>
+                            <p class="link">/html/common/action_bar.html</p>
+                            <span class="date"></span>
+                          </dd>
+                        </dl>
+                      </li>
+                      <li>
+                        <dl>
+                          <dt>
+                            장바구니/주문서 레이아웃
+                            <span class="lb fin"></span>
+                          </dt>
+                          <dd>
+                            <p class="link">/html/common/cart_layout.html</p>
+                            <span class="date"></span>
+                          </dd>
+                        </dl>
+                      </li>
+                      <li>
+                        <dl>
+                          <dt>
+                            상세페이지 헤더
+                            <span class="lb fin"></span>
+                          </dt>
+                          <dd>
+                            <p class="link">/html/common/detail_layout.html</p>
+                            <span class="date"></span>
+                          </dd>
+                        </dl>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <h3>팝업/레이어 및 기타 공통</h3>
+                    <ul class="d3">
+                      <li>
+                        <dl>
+                          <dt>
+                            풀 레이어/드롭다운 셀렉트
+                            <span class="lb ing"></span>
+                          </dt>
+                          <dd>
+                            <p class="link">/html/common/layer_full.html</p>
+                            <span class="date"></span>
+                          </dd>
+                        </dl>
+                      </li>
+                      <li>
+                        <dl>
+                          <dt>
+                            컨펌/얼럿
+                            <span class="lb fin"></span>
+                          </dt>
+                          <dd>
+                            <p class="link">/html/common/confirm.html</p>
+                            <span class="date"></span>
+                          </dd>
+                        </dl>
+                      </li>
+                      <li>
+                        <dl>
+                          <dt>
+                            토스트팝업
+                            <span class="lb fin"></span>
+                          </dt>
+                          <dd>
+                            <p class="link">/html/common/toast.html</p>
+                            <span class="date"></span>
+                          </dd>
+                        </dl>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <h2>전시</h2>
+            <ul class="d2">
+              <li>
+                <h3>홈 매장</h3>
+                <ul class="d3">
+                  <li>
+                    <dl>
+                      <dt>
+                        홈 매장 메인페이지
+                        <span class="lb fin"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/display/home.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        이벤트 전체보기
+                        <span class="lb fin"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/display/home_event.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        피부고민 레이어팝업
+                        <span class="lb fin"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/display/home_popup.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        컬러팔레트 상세
+                        <span class="lb fin"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/display/home_palette.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                </ul>
+                <h3>세일 매장</h3>
+                <ul class="d3">
+                  <li>
+                    <dl>
+                      <dt>
+                        세일 매장
+                        <span class="lb fin"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/display/discount.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                </ul>
+                <h3>선물하기 매장</h3>
+                <ul class="d3">
+                  <li>
+                    <dl>
+                      <dt>
+                        선물하기 매장
+                        <span class="lb fin"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/display/gift.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        신상(NEW) 매장
+                        <span class="lb"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/display/new.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        베스트(BEST) 매장
+                        <span class="lb"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/display/best.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        브랜드 매장
+                        <span class="lb"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/display/brand.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        이벤트 매장
+                        <span class="lb"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/display/event.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        퍼시픽샵 매장
+                        <span class="lb"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/display/pacific.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                </ul>
+              </li>
+              <!-- <li>
+                          <h3>리스트(공통)</h3>
+                          <ul>
+                              <li>
+                                  <dl>
+                                      <dt>리스트(공통) <span class="lb"></span></dt>
+                                      <dd>
+                                          <p class="link">/html/display/list.html</p>
+                                          <span class="date"></span>
+                                      </dd>
+                                  </dl>
+                              </li>
+                          </ul>
+                      </li>
+                      <li>
+                          <h3>카테고리 매장(대/중/소 공통)</h3>
+                          <ul>
+                              <li>
+                                  <dl>
+                                      <dt>카테고리 매장 <span class="lb"></span></dt>
+                                      <dd>
+                                          <p class="link">/html/display/category.html</p>
+                                          <span class="date"></span>
+                                      </dd>
+                                  </dl>
+                              </li>
+                          </ul>
+                      </li> -->
+              <li>
+                <h3>검색</h3>
+                <ul>
+                  <li>
+                    <dl>
+                      <dt>
+                        검색창 메인
+                        <span class="lb"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/display/search.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        검색창 자동완성
+                        <span class="lb"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/display/search_auto.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        검색결과 및 검색결과 없음
+                        <span class="lb"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/display/search_result.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        검색 레이어팝업 모음
+                        <span class="lb ing"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/display/search_popup.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                </ul>
+              </li>
+              <!-- <li>
+                          <h3>액션바</h3>
+                          <ul>
+                              <li>
+                                  <dl>
+                                      <dt>탐색 레이어 <span class="lb"></span></dt>
+                                      <dd>
+                                          <p class="link">/html/display/action_search.html</p>
+                                          <span class="date"></span>
+                                      </dd>
+                                  </dl>
+                              </li>
+                              <li>
+                                  <dl>
+                                      <dt>쇼핑히스토리 <span class="lb"></span></dt>
+                                      <dd>
+                                          <p class="link">/html/display/action_history.html</p>
+                                          <span class="date"></span>
+                                      </dd>
+                                  </dl>
+                              </li>
+                          </ul>
+                      </li> -->
+              <!-- <li>
+                          <h3>개별 브랜드 페이지</h3>
+                          <ul>
+                              <li>
+                                  <dl>
+                                      <dt>개별 브랜드 페이지 <span class="lb"></span></dt>
+                                      <dd>
+                                          <p class="link">/html/display/store.html</p>
+                                          <span class="date"></span>
+                                      </dd>
+                                  </dl>
+                              </li>
+                          </ul>
+                      </li>
+                      <li>
+                          <h3>브랜드 찾기</h3>
+                          <ul>
+                              <li>
+                                  <dl>
+                                      <dt>브랜드 찾기 <span class="lb"></span></dt>
+                                      <dd>
+                                          <p class="link">/html/display/search_brand.html</p>
+                                          <span class="date"></span>
+                                      </dd>
+                                  </dl>
+                              </li>
+                          </ul>
+                      </li> -->
+            </ul>
+          </li>
+          <li>
+            <h2>상품</h2>
+            <ul class="d2">
+              <li>
+                <h3>상품 상세</h3>
+                <ul class="d3">
+                  <li>
+                    <dl>
+                      <dt>
+                        상세 기본 레이아웃
+                        <span class="lb"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/product/detail.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        액션바
+                        <span class="lb"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/product/action.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        추천 탭
+                        <span class="lb"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/product/.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        컬러칩 및 옵션선택 레이어
+                        <span class="lb"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/product/.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <h2>주문/CS</h2>
+            <ul class="d2">
+              <li>
+                <h3>장바구니</h3>
+                <ul class="d3">
+                  <li>
+                    <dl>
+                      <dt>
+                        장바구니
+                        <span class="lb ing"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/cs/cart.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        빈장바구니
+                        <span class="lb ing"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/cs/cart_empty.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        장바구니 팝업 모음
+                        <span class="lb ing"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/cs/cart_popup.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <h3>주문서</h3>
+                <ul class="d3">
+                  <li>
+                    <dl>
+                      <dt>
+                        상품정보
+                        <span class="lb"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/cs/</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        쿠폰 정보
+                        <span class="lb"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/cs/.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        사은품 정보
+                        <span class="lb"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/cs/.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        배송지 지역
+                        <span class="lb"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/cs/.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        배송지 개선
+                        <span class="lb"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/cs/.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>
+                        비회원 및 비설계 영역
+                        <span class="lb"></span>
+                      </dt>
+                      <dd>
+                        <p class="link">/html/cs/.html</p>
+                        <span class="date"></span>
+                      </dd>
+                    </dl>
+                  </li>
+                </ul>
+              </li>
+              <!-- <li>
+                          <h3>마이파우치</h3>
+                          <ul class="d3">
+                              <li>
+                                  <dl>
+                                      <dt>메인(my레이어 통합) <span class="lb"></span></dt>
+                                      <dd>
+                                          <p class="link">/html/cs/</p>
+                                          <span class="date"></span>
+                                      </dd>
+                                  </dl>
+                              </li>
+                              <li>
+                                  <dl>
+                                      <dt>주문/배송조회(배송현황 인앱 포함) <span class="lb "></span></dt>
+                                      <dd>
+                                          <p class="link">/html/cs/.html</p>
+                                          <span class="date"></span>
+                                      </dd>
+                                  </dl>
+                              </li>
+                              <li>
+                                  <dl>
+                                      <dt>정기구독 관리 <span class="lb "></span></dt>
+                                      <dd>
+                                          <p class="link">/html/cs/.html</p>
+                                          <span class="date"></span>
+                                      </dd>
+                                  </dl>
+                              </li>
+                              <li>
+                                  <dl>
+                                      <dt>비설계영역 1차 <span class="lb "></span></dt>
+                                      <dd>
+                                          <p class="link">/html/cs/.html</p>
+                                          <span class="date"></span>
+                                      </dd>
+                                  </dl>
+                              </li>
+                              <li>
+                                  <dl>
+                                      <dt>비설계영역 2차 <span class="lb "></span></dt>
+                                      <dd>
+                                          <p class="link">/html/cs/.html</p>
+                                          <span class="date"></span>
+                                      </dd>
+                                  </dl>
+                              </li>
+                          </ul>
+                      </li>
+                      <li>
+                          <h3>고객센터</h3>
+                          <ul class="d3">
+                              <li>
+                                  <dl>
+                                      <dt>고객센터 <span class="lb"></span></dt>
+                                      <dd>
+                                          <p class="link">/html/cs/</p>
+                                          <span class="date"></span>
+                                      </dd>
+                                  </dl>
+                              </li>
+                          </ul>
+                      </li>
+                      <li>
+                          <h3>로그인</h3>
+                          <ul class="d3">
+                              <li>
+                                  <dl>
+                                      <dt>로그인 <span class="lb"></span></dt>
+                                      <dd>
+                                          <p class="link">/html/cs/</p>
+                                          <span class="date"></span>
+                                      </dd>
+                                  </dl>
+                              </li>
+                          </ul>
+                      </li>
+                      <li>
+                          <h3>회원가입</h3>
+                          <ul class="d3">
+                              <li>
+                                  <dl>
+                                      <dt>회원가입 <span class="lb"></span></dt>
+                                      <dd>
+                                          <p class="link">/html/cs/</p>
+                                          <span class="date"></span>
+                                      </dd>
+                                  </dl>
+                              </li>
+                          </ul>
+                      </li>
+                      <li>
+                          <h3>임직원 서비스</h3>
+                          <ul class="d3">
+                              <li>
+                                  <dl>
+                                      <dt>임직원 서비스 <span class="lb"></span></dt>
+                                      <dd>
+                                          <p class="link">/html/cs/</p>
+                                          <span class="date"></span>
+                                      </dd>
+                                  </dl>
+                              </li>
+                          </ul>
+                      </li> -->
+            </ul>
+          </li>
+          <li>
+            <h2>스마트 뷰티</h2>
+            <ul class="d2">
+              <!-- <li>
+                          <dl>
+                              <dt>메인 <span class="lb"></span></dt>
+                              <dd>
+                                  <p class="link">/html/smart/</p>
+                                  <span class="date"></span>
+                              </dd>
+                          </dl>
+                      </li>
+                      <li>
+                          <dl>
+                              <dt>메시지 보관함(마이파우치와 공통) <span class="lb "></span></dt>
+                              <dd>
+                                  <p class="link">/html/smart/.html</p>
+                                  <span class="date"></span>
+                              </dd>
+                          </dl>
+                      </li>
+                      <li>
+                          <dl>
+                              <dt>스킨 다이어리 <span class="lb "></span></dt>
+                              <dd>
+                                  <p class="link">/html/smart/.html</p>
+                                  <span class="date"></span>
+                              </dd>
+                          </dl>
+                      </li> -->
+              <li>
+                <dl>
+                  <dt>
+                    컬러 파인더
+                    <span class="lb"></span>
+                  </dt>
+                  <dd>
+                    <p class="link">/html/smart/action.html</p>
+                    <span class="date"></span>
+                  </dd>
+                </dl>
+              </li>
+              <li>
+                <dl>
+                  <dt>
+                    베이스 파인더
+                    <span class="lb"></span>
+                  </dt>
+                  <dd>
+                    <p class="link">/html/smart/.html</p>
+                    <span class="date"></span>
+                  </dd>
+                </dl>
+              </li>
+              <li>
+                <dl>
+                  <dt>
+                    스킨 파인더
+                    <span class="lb"></span>
+                  </dt>
+                  <dd>
+                    <p class="link">/html/smart/.html</p>
+                    <span class="date"></span>
+                  </dd>
+                </dl>
+              </li>
+              <!-- <li>
+                          <dl>
+                              <dt>뷰티정보 직접등록 <span class="lb "></span></dt>
+                              <dd>
+                                  <p class="link">/html/smart/.html</p>
+                                  <span class="date"></span>
+                              </dd>
+                          </dl>
+                      </li> -->
+            </ul>
+          </li>
+          <!-- <li>
+                  <h2>정기구독</h2>
+                  <ul class="d2">
+                      <li>
+                          <dl>
+                              <dt>BO 구축 <span class="lb "></span></dt>
+                              <dd>
+                                  <p class="link">/html/smart/.html</p>
+                                  <span class="date"></span>
+                              </dd>
+                          </dl>
+                      </li>
+                      <li>
+                          <dl>
+                              <dt>주문서 <span class="lb "></span></dt>
+                              <dd>
+                                  <p class="link">/html/smart/.html</p>
+                                  <span class="date"></span>
+                              </dd>
+                          </dl>
+                      </li>
+                  </ul>
+              </li> -->
+        </ul>
+        <!-- <dl>
+              <dt> <span class="lb "></span></dt>
+              <dd>
+                  <p class="link">util/.html</p>
+                  <span class="date"></span>
+              </dd>
+          </dl> -->
+      </div>
+    </div>
+  </body>
+</html>
