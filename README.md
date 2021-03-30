@@ -3,6 +3,17 @@ https://docs.npmjs.com/cli/v7/commands/npm-version
 https://github.com/npm/node-semver#functions
 https://kevinkreuzer.medium.com/publishing-a-beta-or-alpha-version-to-npm-46035b630dd7
 
+-----
+
+package.json
+```json
+{
+  "version": "1.0.0-stg.0"
+}
+```
+```
+$ npm publish --tag stg
+```
 
 
 # package.json 생성
