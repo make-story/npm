@@ -86,8 +86,16 @@ $ npm version 1.0.0-stg.0
 
 
 # 태그를 붙여 배포
+https://docs.npmjs.com/cli/v7/commands/npm-publish  
+https://docs.npmjs.com/cli/v7/commands/npm-dist-tag  
 ```
 $ npm publish --tag stg
+```
+
+
+# 태그 붙은 버전 나열
+```
+$ npm dist-tag ls
 ```
 
 
