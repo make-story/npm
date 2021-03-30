@@ -1,3 +1,10 @@
+--tag dev  
+--tag stg  
+--tag latest  
+
+
+-----
+
 
 # package.json 생성
 ```
