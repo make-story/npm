@@ -1,7 +1,7 @@
 # package version
-https://docs.npmjs.com/cli/v7/commands/npm-version
-https://github.com/npm/node-semver#functions
-https://kevinkreuzer.medium.com/publishing-a-beta-or-alpha-version-to-npm-46035b630dd7
+https://docs.npmjs.com/cli/v7/commands/npm-version  
+https://github.com/npm/node-semver#functions  
+https://kevinkreuzer.medium.com/publishing-a-beta-or-alpha-version-to-npm-46035b630dd7  
 
 -----
 
