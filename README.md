@@ -1,26 +1,10 @@
-# package version
-https://docs.npmjs.com/cli/v7/commands/npm-version  
-https://github.com/npm/node-semver#functions  
-https://kevinkreuzer.medium.com/publishing-a-beta-or-alpha-version-to-npm-46035b630dd7  
-
------
-
-package.json
-```json
-{
-  "version": "1.0.0-stg.0"
-}
-```
-```
-$ npm publish --tag stg
-```
-
 
 # package.json 생성
 ```
 $ npm init -y
 ```
 -y를 입력하지 않으면 package.json에 들어가 값들을 직접 입력하면서 package.json을 생성할 수 있으며 -y를 입력할 경우 기본값으로 설정  
+
 
 # package.json 수정
 ```json
@@ -42,8 +26,11 @@ $ npm init -y
 } 
 ```
 
-# 배포
-## 로그인
+
+-----
+
+
+# 로그인
 ```
 $ npm login
 Username: yusungmin
@@ -51,7 +38,8 @@ Password:
 Email: (this IS public) 
 ```
 
-### .npmrc 파일 이용 로그인
+
+## .npmrc 파일 이용 로그인
 auth base64 생성  
 ```
 $ echo -n 'myuser:mypassword' | openssl base64
@@ -63,20 +51,57 @@ email=이메일정보
 _auth=키
 ```
 
+
 ## 로그인 확인
 ```
 $ npm whoami
 ```
+
+
+-----
+
+
+# 버전
+https://docs.npmjs.com/cli/v7/commands/npm-version  
+https://github.com/npm/node-semver#functions  
+https://kevinkreuzer.medium.com/publishing-a-beta-or-alpha-version-to-npm-46035b630dd7  
+
+
+# 버전변경
+package.json
+```json
+{
+  "version": "1.0.0-stg.0"
+}
+```
+
+또는
+
+```
+$ npm version 1.0.0-stg.0
+```
+
+
+-----
+
+
+# 태그를 붙여 배포
+```
+$ npm publish --tag stg
+```
+
 
 ## 배포!
 ```
 $ npm publish
 ```
 
+
 ## 배포된 패키지는 72시간이 지나면 삭제할 수 없어서 불필요한 패키지라면 미리 삭제하자.
 ```
 $ npm unpublish <PACKAGE_NAME> -f
 ```
+
 
 ## 배포 중 대부분의 오류
 1. NPM Registry 가입 후 E-Mail 인증을 하지 않은 경우
@@ -86,11 +111,13 @@ package.json의 name 속성을 바꿔주자.
 3. 이미 같은 버전으로 배포가 된 경우
 npm version [major, minor, path, x.x.x] 명령어로 버전을 올려 배포하자.
 
+
 ## npm 저장소 확인 (사설 저장소 확인은 별도)
 https://www.npmjs.com/settings/yusungmin/packages
 
 
 -----
+
 
 ## package.json
 노드 프로젝트에 대한 정보, 설정, 사용중인 패키지를 기록하는 파일  
