@@ -88,6 +88,12 @@ package.json
 $ npm version 1.0.0-stg.0
 ```
 
+또는
+
+```
+$ npm version patch
+```
+
 
 -----
 
