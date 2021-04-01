@@ -3,7 +3,8 @@ const fs = require('fs');
 
 // 
 const PUBLIC_URL = '';
-const CDN_URL = '';
+const CDN_PRD_URL = '';
+const CDN_STG_URL = '';
 const CDN_PATH = 'public';
 
 // Make sure any symlinks in the project folder are resolved:
@@ -47,6 +48,7 @@ module.exports = {
 	appPath: resolveApp('.'),
 	appConfig: resolveApp('config'),
 	publicUrl: getPublicUrl(resolveApp('package.json')),
-	cdnUrl: CDN_URL,
+	cdnPrdUrl: CDN_PRD_URL,
+	cdnStgUrl: CDN_STG_URL,
 	cdnPath: CDN_PATH,
 };
