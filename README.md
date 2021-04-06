@@ -1,7 +1,11 @@
---tag dev  
+--tag dev 
+--tag qa   
 --tag stg  
 --tag latest  
 
+```
+$ yarn add <name>@<tag>
+```
 
 -----
 
