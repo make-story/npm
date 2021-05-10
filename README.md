@@ -1,11 +1,11 @@
---tag dev 
---tag qa   
---tag stg  
---tag latest  
+# NPM
 
-```
-$ yarn add <name>@<tag>
-```
+> 공식 사이트  
+https://docs.npmjs.com/   
+
+> 참고페이지   
+https://outofbedlam.gitbooks.io/npm-handbook/content/   
+
 
 -----
 
@@ -73,36 +73,244 @@ $ npm whoami
 
 
 # 버전
-https://docs.npmjs.com/cli/v7/commands/npm-version  
+http://blog.foundy.io/npm-version/  
+https://outofbedlam.gitbooks.io/npm-handbook/content/cli/npm-version.html    
 https://github.com/npm/node-semver#functions  
 https://kevinkreuzer.medium.com/publishing-a-beta-or-alpha-version-to-npm-46035b630dd7  
 
 
-# 버전변경
-package.json
+## 버전변경
+### 1. package.json
 ```json
 {
   "version": "1.0.0-stg.0"
 }
 ```
+  
 
-또는
+### 2. npm version 명령   
 
+> `Usage`  
+```
+npm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease | from-git]  
+```
+
+> `Version format`
+```
+<major>.<minor>.<patch>[-<pre-release>+<metadata>]  
+```
+
+> `Release arguments`  
+각 argument에 따라 해당 자리의 버전이 증가되고, Commit과 Tag가 자동으로 생성됩니다.  
+
+
+#### 사용자 정의 버전   
 ```
 $ npm version 1.0.0-stg.0
 ```
 
-또는
-
+#### major
 ```
+$ cat package.json | grep version
+"version": "1.0.0",
+
+$ npm version major
+v2.0.0
+
+$ git log --oneline -1
+beda9bf 2.0.0
+
+$ git tag -l
+v2.0.0
+
+$ cat package.json | grep version
+"version": "2.0.0",
+```
+자동으로 Commit과 Tag가 생성되고, 버전은 v1.0.0에서 v2.0.0으로 업데이트
+
+#### minor
+```
+$ cat package.json | grep version
+"version": "1.0.0",
+
+$ npm version minor
+v1.1.0
+
+$ git log --oneline -1
+16acfc8 1.1.0
+
+$ git tag -l
+v1.1.0
+
+$ cat package.json | grep version
+"version": "1.1.0",
+```
+자동으로 Commit과 Tag가 생성되고, 버전은 v1.0.0에서 v1.1.0으로 업데이트   
+
+#### patch
+```
+$ cat package.json | grep version
+"version": "1.0.0",
+
 $ npm version patch
+v1.0.1
+
+$ git log --oneline -1
+51d070c 1.0.1
+
+$ git tag -l
+v1.0.1
+
+$ cat package.json | grep version
+"version": "1.0.1",
+```
+자동으로 Commit과 Tag가 생성되고, 버전은 v1.0.0에서 v1.0.1로 업데이트
+
+
+> `Pre-release arguments`  
+정식 배포를 하기 전 버전의 업데이트 명령어를 살펴보겠습니다.  
+정식 버전 명령어와는 다르게 - 구분자가 추가되고, 구분자 뒤에 정식 배포 전 버전을 표기하기 위한 카운트가 추가됩니다.  
+
+#### premajor
+```
+$ cat package.json | grep version
+"version": "1.0.0",
+
+$ npm version premajor
+v2.0.0-0
+```
+major 버전이 증가하고, - 구분자 뒤에 pre-release를 위한 카운트가 추가  
+
+#### preminor
+```
+$ cat package.json | grep version
+"version": "1.0.0",
+
+$ npm version preminor
+v1.1.0-0
+```
+minor 버전이 증가하고, - 구분자 뒤에 pre-release를 위한 카운트가 추가
+
+#### prepatch
+```
+$ cat package.json | grep version
+"version": "1.0.0",
+
+$ npm version prepatch
+v1.0.1-0
+```
+patch 버전이 증가하고, - 구분자 뒤에 pre-release를 위한 카운트가 추가
+
+### prerelease
+```
+$ cat package.json | grep version
+"version": "1.0.0",
+
+$ npm version prerelease
+v1.0.1-0
+```
+pre-release를 위한 카운트가 없을 경우 기본으로 patch 버전이 증가하고, - 구분자 뒤에 pre-release를 위한 카운트가 추가  
+
+
+> `from-git`  
+최근 Tag의 버전을 적용합니다.  
+```
+$ cat package.json | grep version
+"version": "1.0.0",
+
+$ echo 'foo' >> README.md
+
+$ git commit -am 'update README.md'
+[master 4ed3042] update README.md
+ 1 file changed, 1 insertion(+)
+
+$ git tag -a v1.0.1 -m 'Version 1.0.1'
+
+$ git log --oneline --decorate=full -1
+4ed3042 (HEAD -> refs/heads/master, tag: refs/tags/v1.0.1) update README.md
+
+$ npm version from-git
+v1.0.1
+
+$ git log --oneline --decorate=full -2
+5536080 (HEAD -> refs/heads/master) 1.0.1
+4ed3042 (tag: refs/tags/v1.0.1) update README.md
 ```
 
+
+> `Options`  
+arguments와 함께 사용되는 옵션입니다.
+
+#### -m or --message  
+Commit 메시지를 정의할 수 있습니다.  
+```
+$ cat package.json | grep version
+"version": "1.0.0",
+
+$ npm version patch -m 'Version: %s'
+v1.0.1
+
+$ git log --oneline -1
+60c5544 Version: 1.0.1
+```
+%s를 사용하면 적용되는 버전으로 바꿔줍니다. 보시다시피 Commit 메시지에 %s가 1.0.1로 변경되어 있습니다.  
+
+#### --no-git-tag-version  
+Commit과 Tag 생성을 비활성화 합니다.  
+```
+$ cat package.json | grep version
+"version": "1.0.0",
+
+$ npm version patch --no-git-tag-version
+v1.0.1
+
+$ git status
+...생략
+modified:   package.json
+...생략
+
+$ cat package.json | grep version
+"version": "1.0.1",
+```
+git status로 보면 package.json 파일이 modified 상태로 출력됩니다. Commit과 Tag가 자동으로 생성되지 않고 변경된 상태로만 남게 됩니다.  
+
+#### -f or --force
+기본적으로 작업 디렉토리가 Clean 상태가 아닌 경우에는 버전 업데이트가 실패됩니다.  
+이 옵션을 사용하면 Clean 상태가 아닌 경우에도 강제로 버전 업데이트를 실행 할 수 있습니다.  
+```
+$ cat package.json | grep version
+"version": "1.0.0",
+
+$ echo 'foo' >> README.md
+
+$ git status
+...생략
+modified:   README.md
+...생략
+
+$ npm version patch
+...생략
+npm ERR! Git working directory not clean.
+npm ERR! M README.md
+...생략
+
+$ npm version patch -f
+npm WARN using --force I sure hope you know what you are doing.
+v1.0.1
+
+$ git log --oneline -1
+96deed7 1.0.1
+
+$ git status
+...생략
+modified:   README.md
+...생략
+```
 
 -----
 
 
-# 태그를 붙여 배포
+# Tag 를 붙여 배포
 https://docs.npmjs.com/cli/v7/commands/npm-publish  
 https://docs.npmjs.com/cli/v7/commands/npm-dist-tag  
 ```
@@ -110,13 +318,35 @@ $ npm publish --tag stg
 ```
 
 
-# 태그 붙은 버전 나열
+## 환경 단위 Tag 예    
+--tag dev 
+--tag qa   
+--tag stg  
+--tag latest  
+
+
+# Tag 붙은 버전 나열
 ```
 $ npm dist-tag ls
 ```
 
 
-## 배포!
+## Tag 의 마지막 버전 설치  
+```
+$ yarn add <name>@<tag>
+```
+
+
+## Tag 의 버전지정 설치
+ ```
+$ yarn add apcp-css@1.0.0-stg.0
+```
+
+
+-----
+
+
+# 배포!
 ```
 $ npm publish
 ```
