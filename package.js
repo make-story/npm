@@ -2,7 +2,8 @@
  * NPM package.json 정보 설정
  * 
  * 실행 명령 예(--version 옵션은 선택사항) 
- * $ node package.js --phase stg --npmPackageName apcp-css --npmPackageVersion 1.0.1
+ * $ node package.js --phase <환경 dev/stg/prd 등> --npmPackageName <패키지명> --npmPackageVersion <버전> --npmPackageTag <태그>
+ * $ node package.js --phase stg --npmPackageName apcp-css --npmPackageVersion 1.2.3
  * $ node package.js --phase stg --npmPackageName apcp-css --npmPackageTag stg
  */
  const path = require("path");
